@@ -17,7 +17,8 @@ export const addUser = async (req: Request<{}, any, IUser>, res: Response) => {
   const user: IUser = req.body;
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const created_user = await User.create({
+
+    const created_user: IUser = {
       name: user.name,
       lastname: user.lastname,
       birthday: new Date(user.birthday),
@@ -25,8 +26,10 @@ export const addUser = async (req: Request<{}, any, IUser>, res: Response) => {
       email: user.email,
       password: hashedPassword,
       username: user.username,
-    });
+      created_date: new Date(),
+    };
 
+    await User.create(created_user);
     res.status(201).json(created_user);
   } catch (error: any) {
     if (error.name === "MongoServerError" && error.code === 11000) {
@@ -64,14 +67,17 @@ export const updateUser = async (
 ) => {
   const user: IUser = req.body;
   try {
-    const updated_user = await User.findByIdAndUpdate(user._id, {
-      $set: {
-        name: user.name,
-        lastname: user.lastname,
-        birthday: new Date(user.birthday),
-        dni: user.dni,
-        email: user.email,
-      },
+    const updated_user: Partial<IUser> = {
+      name: user.name,
+      lastname: user.lastname,
+      birthday: new Date(user.birthday),
+      dni: user.dni,
+      email: user.email,
+      updated_date: new Date(),
+    };
+
+    await User.findByIdAndUpdate(user._id, {
+      $set: updated_user,
     });
 
     res.status(201).json(updated_user);

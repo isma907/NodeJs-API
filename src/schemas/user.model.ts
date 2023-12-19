@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  update_date: {
+    type: Date,
+  },
+  created_date: {
+    type: Date,
+  },
 });
 
 const User = mongoose.model<IUser>("users", userSchema);
