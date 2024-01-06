@@ -44,9 +44,9 @@ const router = express.Router();
 router.get("/", getUsers);
 
 /**
- * @swagger
+ * @openapi
  * /users/filterByObj:
- *   get:
+ *   post:
  *     summary: Filter User By
  *     description: Retrieve a list of users with optional pagination
  *     parameters:
@@ -64,7 +64,13 @@ router.get("/", getUsers);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '../schemas/user.model.json'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful response
  */
 router.get("/filterByObj", filterUserByObj);
 
