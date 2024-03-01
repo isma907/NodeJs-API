@@ -29,7 +29,7 @@ const simpsonCharacterSchema = new mongoose.Schema({
 });
 
 const SimpsonCharacterSchema = mongoose.model<SimpsonCharacterSchema>(
-  "simpsons",
+  "characters",
   simpsonCharacterSchema
 );
 export default SimpsonCharacterSchema;
