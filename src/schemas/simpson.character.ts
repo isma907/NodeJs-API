@@ -4,27 +4,21 @@ import { SimpsonCharacter as SimpsonCharacterSchema } from "../_interfaces";
 const simpsonCharacterSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
   },
   resume: {
-    type: String,
-    required: true,
+    type: String,  
   },
   image: {
     type: String,
-    required: true,
   },
   gender: {
     type: String,
-    required: true,
   },
   status: {
     type: String,
-    required: true,
   },
   occupation: {
     type: String,
-    required: true,
   },
 });
 
