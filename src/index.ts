@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
-
 import usersRoute from "./routes/users";
-
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json";
@@ -29,6 +27,7 @@ async function main() {
     await connectDB();
 
     const jsonData = require("../simpsons.characters.json");
+    await SimpsonCharacterSchema.deleteMany({});
     await SimpsonCharacterSchema.insertMany(jsonData);
 
     console.log(`Server Running at port ${PORT}`);
