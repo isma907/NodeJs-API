@@ -1,14 +1,13 @@
 import express from "express";
 import cors from "cors";
-import usersRoute from "./routes/users";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json";
-import { connectDB } from "./database";
-import { authenticateJWT } from "./middleware/auth";
-import authRouter from "./routes/auth";
 import simpsonsRoute from "./routes/simpsons";
-import SimpsonCharacterSchema from "./schemas/simpson.character";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+dotenv.config();
 
 const PORT = 4000;
 const app = express();
@@ -17,22 +16,21 @@ app.use(express.json());
 const swaggerSpec = swaggerJSDoc(swaggerConfig);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/auth", authRouter);
-app.use("/users", usersRoute);
 app.use("/simpsons", simpsonsRoute);
 
 async function main() {
   try {
-    app.listen(PORT);
-    await connectDB();
+    const dbURI = process.env.DATABASE_HOST || "mongodb://127.0.0.1:27017";
+    const dbName = process.env.DATABASE_NAME || "simpsons";
 
-    const jsonData = require("../simpsons.characters.json");
-    await SimpsonCharacterSchema.deleteMany({});
-    await SimpsonCharacterSchema.insertMany(jsonData);
+    await mongoose.connect(dbURI, { dbName });
+    console.log(`Connected to MongoDB database: ${dbName}`);
 
-    console.log(`Server Running at port ${PORT}`);
+    app.listen(PORT, () => {
+      console.log(`API Server listening on port ${PORT}`);
+    });
   } catch (err) {
-    console.log(err);
+    console.error("Failed to start server:", err);
   }
 }
 
