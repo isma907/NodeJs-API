@@ -20,17 +20,18 @@ export const filterUserByObj = async (
   const page = Number(req.query.page ? req.query.page : 1);
   const limit = Number(req.query.limit ? req.query.limit : 10);
 
-  const regexFilterObj: Record<keyof SimpsonCharacter, RegExp> = {} as Record<
-    keyof SimpsonCharacter,
-    RegExp
-  >;
+  const regexFilterObj: Partial<Record<keyof SimpsonCharacter, RegExp>> = {};
+
   for (const key in filterObj) {
-    if (filterObj.hasOwnProperty(key)) {
-      //@ts-ignore
-      regexFilterObj[key] = new RegExp(filterObj[key], "i");
+    if (Object.prototype.hasOwnProperty.call(filterObj, key)) {
+      const typedKey = key as keyof SimpsonCharacter;
+      const value = filterObj[typedKey];
+
+      if (value) {
+        regexFilterObj[typedKey] = new RegExp(String(value), "i");
+      }
     }
   }
-  //@ts-ignore
   const users = await SimpsonCharacterSchema.find(regexFilterObj)
     .skip((page - 1) * limit)
     .limit(limit);
