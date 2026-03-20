@@ -1,3 +1,5 @@
+# Simpsons Characters API
+
 # 📦 Project Setup
 
 ## 1. Install dependencies
