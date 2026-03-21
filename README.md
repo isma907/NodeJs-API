@@ -28,5 +28,5 @@ npm run seeds
 ## 4. Run Project
 
 ```bash
-npm start
+npm run dev
 ```
