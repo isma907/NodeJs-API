@@ -7,3 +7,11 @@ export interface SimpsonCharacter {
   status: string;
   occupation: string;
 }
+
+export interface SuperheroCharacter {
+  _id?: string;
+  name: string;
+  firstAppearance: string;
+  image: string;
+  publisher: string;
+}

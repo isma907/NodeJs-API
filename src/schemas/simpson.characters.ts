@@ -6,7 +6,7 @@ const simpsonCharacterSchema = new mongoose.Schema({
     type: String,
   },
   resume: {
-    type: String,  
+    type: String,
   },
   image: {
     type: String,
