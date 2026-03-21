@@ -6,6 +6,7 @@ import swaggerConfig from "../swagger.json";
 
 import simpsonsRoute from "./routes/simpsons";
 import superheroesRoute from "./routes/superheroes";
+import usersRoute from "./routes/users";
 
 import dotenv from "dotenv";
 import { dbConnect } from "./database";
@@ -21,6 +22,7 @@ const swaggerSpec = swaggerJSDoc(swaggerConfig);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/simpsons", simpsonsRoute);
 app.use("/superheroes", superheroesRoute);
+app.use("/users", usersRoute);
 
 async function main() {
   try {

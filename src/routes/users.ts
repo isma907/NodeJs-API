@@ -1,14 +1,14 @@
 import express from "express";
-import { getCharacters, filterUserByObj } from "../controllers";
+import { addUser, getUsers } from "../controllers";
 
 
 const router = express.Router();
 
 /**
  * @openapi
- * /simpsons/characters:
+ * /users:
  *   get:
- *     summary: Get Simpsons Characters
+ *     summary: Get Users
  *     description: Retrieve a list of users with optional pagination
  *     parameters:
  *       - in: query
@@ -36,11 +36,11 @@ const router = express.Router();
  *       400:
  *         description: Bad request, check your input
  */
-router.get("/characters", getCharacters);
+router.get("/", getUsers);
 
 /**
  * @swagger
- * /simpsons/filterByObj:
+ * /add:
  *   post:
  *     summary: Filter User By
  *     description: Retrieve a list of users with optional pagination
@@ -67,6 +67,6 @@ router.get("/characters", getCharacters);
  *       400:
  *         description: Bad request, check your input
  */
-router.post("/filterByObj", filterUserByObj);
+router.post("/add", addUser);
 
 export default router;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { SimpsonCharacter as SimpsonCharacterSchema } from "../_interfaces";
+import { SimpsonCharacter } from "../interfaces"
 
 const simpsonCharacterSchema = new mongoose.Schema({
   name: {
@@ -22,8 +22,7 @@ const simpsonCharacterSchema = new mongoose.Schema({
   },
 });
 
-const SimpsonCharacterSchema = mongoose.model<SimpsonCharacterSchema>(
+export const SimpsonCharacterSchema = mongoose.model<SimpsonCharacter>(
   "simpsons",
   simpsonCharacterSchema
 );
-export default SimpsonCharacterSchema;

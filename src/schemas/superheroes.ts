@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { SuperheroCharacter } from "../_interfaces";
+import { SuperheroCharacter } from "../interfaces";
 
 const superheroesCharacterSchema = new mongoose.Schema({
   name: {
@@ -16,8 +16,7 @@ const superheroesCharacterSchema = new mongoose.Schema({
   },
 });
 
-const SuperheroCharacter = mongoose.model<SuperheroCharacter>(
+export const SuperHeroCharacterSchema = mongoose.model<SuperheroCharacter>(
   "superheroes",
   superheroesCharacterSchema
 );
-export default SuperheroCharacter;

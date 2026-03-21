@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import SimpsonCharacterSchema from "./schemas/simpson.characters";
+import SimpsonCharacterSchema from "./schemas/simpson";
 import path from "path";
 import fs from "fs";
-import SuperheroCharacter from "./schemas/superheroes.characters";
+import SuperHeroCharacterSchema from "./schemas/superheroes";
 import { dbConnect } from "./database";
 
 dotenv.config();
@@ -29,11 +29,11 @@ async function seed() {
 
     console.log("Clearing collection...");
     await SimpsonCharacterSchema.deleteMany({});
-    await SuperheroCharacter.deleteMany({});
+    await SuperHeroCharacterSchema.deleteMany({});
 
     console.log(`Inserting documents into MongoDB...`);
     await SimpsonCharacterSchema.insertMany(jsonDataSimpsons);
-    await SuperheroCharacter.insertMany(jsonDataHeroes);
+    await SuperHeroCharacterSchema.insertMany(jsonDataHeroes);
 
     console.log("Seeding complete! Successfully generated database seed.");
   } catch (err) {

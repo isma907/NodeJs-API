@@ -15,11 +15,3 @@ export interface SuperheroCharacter {
   image: string;
   publisher: string;
 }
-
-export interface DataPageResponse<T> {
-  page: number;
-  limit: number;
-  totalItems: number;
-  totalPages: number;
-  data: T[];
-}
