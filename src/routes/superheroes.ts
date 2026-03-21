@@ -38,7 +38,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request, check your input
  */
-router.get("/superheroes", getSuperHeroes);
+router.get("/characters", getSuperHeroes);
 
 /**
  * @swagger

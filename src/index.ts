@@ -3,8 +3,10 @@ import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json";
+
 import simpsonsRoute from "./routes/simpsons";
 import superheroesRoute from "./routes/superheroes";
+
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 

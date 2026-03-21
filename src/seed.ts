@@ -17,6 +17,8 @@ async function seed() {
     console.log(`Connected to database: ${dbName}`);
 
     console.log("Reading simpsons.characters.json...");
+    console.log("Reading superheroes.characters.json...");
+
     const dataPathSimpsons = path.resolve(__dirname, "../data/simpsons.json");
     const dataPathHeroes = path.resolve(__dirname, "../data/superheroes.json");
     if (!fs.existsSync(dataPathSimpsons)) {

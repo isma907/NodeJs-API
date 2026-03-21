@@ -1,5 +1,5 @@
-# Simpsons Characters API
-
+# NodeJS + Express + MongoDB + TypeScript
+# Characters API
 # 📦 Project Setup
 
 ## 1. Install dependencies
