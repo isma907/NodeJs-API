@@ -12,6 +12,11 @@ const router = express.Router();
  *     description: Retrieve a list of users with optional pagination
  *     parameters:
  *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: The search term for filtering users
+ *       - in: query
  *         name: page
  *         schema:
  *           type: integer
@@ -42,28 +47,40 @@ router.get("/", getUsers);
  * @swagger
  * /add:
  *   post:
- *     summary: Filter User By
- *     description: Retrieve a list of users with optional pagination
- *     parameters:
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *         description: The page number for pagination
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
+ *     summary: Add new User
+ *     description: Add a new User to the database
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *            properties:
- *              name:string
+ *             type: object
+ *             required:
+ *               - name
+ *               - email
+ *               - password
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Ismael
+ *               lastname:
+ *                 type: string
+ *                 example: Fernandez
+ *               birthdate:
+ *                 type: string
+ *                 example: 1997-05-10
+ *               email:
+ *                 type: string
+ *                 example: your@email.com
+ *               imageUrl:
+ *                 type: string
+ *                 example: https://example.com/image.jpg
+ *               password:
+ *                 type: string
+ *                 example: 123456
  *     responses:
  *       201:
- *         description: Example created successfully
+ *         description: User created successfully
  *       400:
  *         description: Bad request, check your input
  */

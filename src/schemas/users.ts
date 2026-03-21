@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import { User } from "../interfaces";
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
-
     },
     lastname: {
         type: String,
@@ -18,6 +16,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
     },
     password: {
         type: String,
@@ -31,6 +30,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
+
     try {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
@@ -44,9 +44,12 @@ userSchema.methods.comparePassword = async function (password: string) {
     return bcrypt.compare(password, this.password);
 };
 
-export const UserSchema = mongoose.model<User>(
-    "users",
-    userSchema
-);
+// 🚫 Nunca devolver password
+userSchema.set("toJSON", {
+    transform: (_, ret) => {
+        delete ret.password;
+        return ret;
+    },
+});
 
-
+export const UserSchema = mongoose.model<User>("users", userSchema);

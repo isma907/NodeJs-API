@@ -4,12 +4,15 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerConfig from "../swagger.json";
 
+import authRoute from "./routes/auth";
 import simpsonsRoute from "./routes/simpsons";
 import superheroesRoute from "./routes/superheroes";
 import usersRoute from "./routes/users";
 
 import dotenv from "dotenv";
 import { dbConnect } from "./database";
+import { UserSchema } from "./schemas";
+
 
 dotenv.config();
 
@@ -20,6 +23,7 @@ app.use(express.json());
 const swaggerSpec = swaggerJSDoc(swaggerConfig);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/auth", authRoute);
 app.use("/simpsons", simpsonsRoute);
 app.use("/superheroes", superheroesRoute);
 app.use("/users", usersRoute);
@@ -27,6 +31,7 @@ app.use("/users", usersRoute);
 async function main() {
   try {
     dbConnect()
+    await UserSchema.syncIndexes();
     app.listen(PORT, () => {
       console.log(`API Server listening on port ${PORT}`);
     });
