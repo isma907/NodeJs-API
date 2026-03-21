@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import SimpsonCharacterSchema from "./schemas/simpson";
 import path from "path";
 import fs from "fs";
-import SuperHeroCharacterSchema from "./schemas/superheroes";
+import { SimpsonCharacterSchema } from "./schemas";
+import { SuperHeroCharacterSchema } from "./schemas";
 import { dbConnect } from "./database";
 
 dotenv.config();
