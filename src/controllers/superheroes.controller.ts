@@ -1,16 +1,34 @@
-import { SimpsonCharacter } from "../_interfaces";
+import { DataPageResponse, SimpsonCharacter, SuperheroCharacter } from "../_interfaces";
 import { Request, Response } from "express";
 import SuperheroCharacterSchema from "../schemas/superheroes.characters";
 
 export const getSuperHeroes = async (req: Request, res: Response) => {
-  const page = Number(req.query.page ? req.query.page : 1);
-  const limit = Number(req.query.limit ? req.query.limit : 10);
+  const page = Number(req.query.page ?? 1);
+  const limit = Number(req.query.limit ?? 10);
+  const query = req.query.query ?? ''
 
-  const users = await SuperheroCharacterSchema.find()
-    .skip((page - 1) * limit)
-    .limit(limit);
-  res.send(users);
+  const filter = query
+    ? { name: { $regex: query, $options: "i" } }
+    : {};
+
+  const [users, total] = await Promise.all([
+    SuperheroCharacterSchema.find(filter)
+      .skip((page - 1) * limit)
+      .limit(limit),
+    SuperheroCharacterSchema.countDocuments(filter),
+  ]);
+
+  const resData: DataPageResponse<SuperheroCharacter> = {
+    data: users,
+    page,
+    limit,
+    totalItems: total,
+    totalPages: Math.ceil(total / limit),
+  };
+
+  res.json(resData);
 };
+
 
 export const filterUserByObj = async (
   req: Request<{}, any, SimpsonCharacter>,
