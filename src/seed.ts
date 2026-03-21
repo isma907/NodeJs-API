@@ -4,23 +4,19 @@ import SimpsonCharacterSchema from "./schemas/simpson.characters";
 import path from "path";
 import fs from "fs";
 import SuperheroCharacter from "./schemas/superheroes.characters";
+import { dbConnect } from "./database";
 
 dotenv.config();
 
 async function seed() {
   try {
-    const dbURI = process.env.DATABASE_HOST || "mongodb://127.0.0.1:27017";
-    const dbName = process.env.DATABASE_NAME || "characters";
 
-    console.log("Connecting to MongoDB...");
-    await mongoose.connect(dbURI, { dbName });
-    console.log(`Connected to database: ${dbName}`);
-
+    dbConnect()
     console.log("Reading simpsons.characters.json...");
     console.log("Reading superheroes.characters.json...");
-
     const dataPathSimpsons = path.resolve(__dirname, "../data/simpsons.json");
     const dataPathHeroes = path.resolve(__dirname, "../data/superheroes.json");
+
     if (!fs.existsSync(dataPathSimpsons)) {
       throw new Error(`Data file not found at ${dataPathSimpsons}`);
     }

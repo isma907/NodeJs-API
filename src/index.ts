@@ -8,7 +8,7 @@ import simpsonsRoute from "./routes/simpsons";
 import superheroesRoute from "./routes/superheroes";
 
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import { dbConnect } from "./database";
 
 dotenv.config();
 
@@ -24,12 +24,7 @@ app.use("/superheroes", superheroesRoute);
 
 async function main() {
   try {
-    const dbURI = process.env.DATABASE_HOST || "mongodb://127.0.0.1:27017";
-    const dbName = process.env.DATABASE_NAME || "characters";
-
-    await mongoose.connect(dbURI, { dbName });
-    console.log(`Connected to MongoDB database: ${dbName}`);
-
+    dbConnect()
     app.listen(PORT, () => {
       console.log(`API Server listening on port ${PORT}`);
     });
